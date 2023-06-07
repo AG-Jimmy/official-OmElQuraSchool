@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const bestStudentRouter = require("./routes/bestStudent");
 const schoolNewsRouter = require("./routes/schoolNews");
 const studentActivitiesRouter = require("./routes/studentActivities");
+const usersRouter = require("./routes/users");
+
 require("dotenv").config();
 
 const app = express();
@@ -16,6 +18,7 @@ app.use(express.json());
 app.use("/bestStudent", bestStudentRouter);
 app.use("/schoolNew", schoolNewsRouter);
 app.use("/studentActivities", studentActivitiesRouter);
+app.use("/users", usersRouter);
 
 async function main() {
   await mongoose.connect(uri);
