@@ -5,29 +5,29 @@ const userModel = new Schema({
   firstName: {
     type: String,
     required: true,
-    minLength: [3, "minmax 3 char "],
-    maxLength: 255,
+    minlength: 3,
+    maxlength: 255,
   },
   lastName: {
     type: String,
     required: true,
-    minLength: [3, "minmax 3 char "],
-    maxLength: 255,
+    minlength: 3,
+    maxlength: 255,
   },
   email: {
     type: String,
     required: true,
-    minLength: 10,
-    maxLength: 255,
+    minlength: 10,
+    maxlength: 255,
     unique: true,
   },
   password: {
     type: String,
     required: true,
-    minLength: [8, "minmax 8 char "],
-    maxLength: 255,
+    minlength: 8,
+    maxlength: 1025,
   }
-},{ versionKey: false });
+},{ versionKey: false,timestamps:true });
 
 
 module.exports=mongoose.model('user',userModel) 
