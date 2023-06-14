@@ -36,7 +36,7 @@ module.exports = {
   get: async (req, res) => {
     try {
       const getAllUsers = await userModel.find({});
-      getAllUsers ? res.status(200).json(getAllUsers) : "error";
+      getAllUsers ? res.status(200).json(getAllUsers) :0;
     } catch (err) {
       res.status(500).json(err);
     }
@@ -70,17 +70,9 @@ module.exports = {
       );
       updateUser ? res.status(201).json(updateUser) :0;
       }
-      // const id = req.params.id;
-      // const { firstName, lastName, email, password } = req.body;
-      // const updateUser = await userModel.findOneAndUpdate(
-      //   { _id: id },
-      //   { firstName, lastName, email, password },
-      //   { new: true }
-      // );
-      // updateUser ? res.status(201).json(updateUser) : "error";
+      
     } catch (error) {
       res.json({ status: "failed", message: error.message });
-      // res.status(500).json(err);
     }
   },
 
@@ -88,7 +80,7 @@ module.exports = {
     try {
       const id = req.params.id;
       const deleteUser = await userModel.findOneAndDelete({ _id: id });
-      deleteUser ? res.status(200).json(deleteUser) : "error";
+      deleteUser ? res.status(200).json(deleteUser) :0;
     } catch (err) {
       res.status(500).json(err);
     }
@@ -98,7 +90,7 @@ module.exports = {
     try {
       const id = req.params.id;
       const getOneUser = await userModel.findOne({ _id: id });
-      getOneUser ? res.status(200).json(getOneUser) : "errror";
+      getOneUser ? res.status(200).json(getOneUser) :0;
     } catch (err) {
       res.status(500).json(err);
     }

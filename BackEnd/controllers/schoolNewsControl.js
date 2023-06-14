@@ -9,16 +9,16 @@ module.exports = {
       createSchoolNews
         ? res.status(201).json(createSchoolNews)
         : "error in post";
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(500).json(`${error} in post new school News`);
     }
   },
   get: async (req, res) => {
     try {
       const getAllSchoolNews = await schoolNewsModel.find();
       getAllSchoolNews ? res.status(200).json(getAllSchoolNews) : "";
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(500).json(`${error} in get new school News`);
     }
   },
   patch: async (req, res) => {
@@ -31,8 +31,8 @@ module.exports = {
         { new: true }
       );
       updateSchoolNews ? res.status(201).json(updateSchoolNews) : "";
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(500).json(`${error} in patch new school News`);
     }
   },
   delete: async (req, res) => {
@@ -42,8 +42,8 @@ module.exports = {
         _id: id,
       });
       deleteSchoolNews ? res.status(200).json(deleteSchoolNews) : "";
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(500).json(`${error} in delete new school News`);
     }
   },
 };
