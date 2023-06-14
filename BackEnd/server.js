@@ -23,11 +23,7 @@ app.use("/users", usersRouter);
 async function main() {
   await mongoose.connect(uri);
   app.listen(port, () => {
-    console.log(`
-    ********************************
-    Mongo DB is connecting .........
-    server is running on port:${port} 
-    ********************************`);
+    console.log(`server is running on port:${port} `);
   });
 }
 main();
