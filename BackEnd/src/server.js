@@ -8,22 +8,33 @@ const usersRouter = require("./routes/users");
 
 require("dotenv").config();
 
-const app = express();
-const port = process.env.PORT || 5000;
-const uri = process.env.ATLAS_URI;
-
+// const app = express();
+const app =new express();
+//middleware
 app.use(cors());
 app.use(express.json());
+
+const uri = process.env.ATLAS_URI;
 
 app.use("/bestStudent", bestStudentRouter);
 app.use("/schoolNew", schoolNewsRouter);
 app.use("/studentActivities", studentActivitiesRouter);
 app.use("/users", usersRouter);
+// app.use(cors());
+// app.use(express.json());
 
-async function main() {
-  await mongoose.connect(uri);
-  app.listen(port, () => {
-    console.log(`server is running on port:${port} `);
-  });
+
+class Server {
+  start = async (PORT) => {
+    await mongoose.connect(uri);
+    return app.listen(PORT, () => {
+      console.log(`
+      =======================================
+      Mongo DB is Running in StudentData ...
+      server side is running on port :${PORT} 
+      =======================================
+      `);
+    });
+  };
 }
-main();
+module.exports = new Server();
