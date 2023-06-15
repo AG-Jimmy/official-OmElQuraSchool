@@ -15,14 +15,11 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-
+ 
 app.use("/bestStudent", bestStudentRouter);
 app.use("/schoolNew", schoolNewsRouter);
 app.use("/studentActivities", studentActivitiesRouter);
 app.use("/users", usersRouter);
-// app.use(cors());
-// app.use(express.json());
-
 
 class Server {
   start = async (PORT) => {
