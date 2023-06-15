@@ -1,7 +1,8 @@
-const bestStudentModel = require("../models/bestStudent");
+import bestStudentModel from "../models/bestStudent";
+import { Request,Response } from "express";
 
-module.exports = {
-  post: async (req, res) => {
+export default {
+  post: async (req:Request, res:Response) => {
     try {
       const { name, classroom, rating } = req.body;
       const bestStudent = new bestStudentModel({ name, classroom, rating });
@@ -13,7 +14,8 @@ module.exports = {
       res.status(500).json(`${error} in post new school News`);
     }
   },
-  get: async (req, res) => {
+
+  get: async (req:Request, res:Response) => {
     try {
       const getAllBestStudent = await bestStudentModel.find();
       getAllBestStudent ? res.status(200).json(getAllBestStudent) :0;
@@ -21,7 +23,8 @@ module.exports = {
       res.status(500).json(`${error} in get new school News`);
     }
   },
-  patch: async (req, res) => {
+
+  patch: async (req:Request, res:Response) => {
     try {
       const id = req.params.id;
       const { name, classroom, rating } = req.body;
@@ -35,7 +38,8 @@ module.exports = {
       res.status(500).json(`${error} in patch new school News`);
     }
   },
-  delete: async (req, res) => {
+  
+  delete: async (req:Request, res:Response) => {
     try {
       const id = req.params.id;
       const deleteBestStudent = await bestStudentModel.findOneAndDelete({

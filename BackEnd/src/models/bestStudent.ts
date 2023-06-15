@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const bestStudentSchema = new Schema(
@@ -10,8 +10,5 @@ const bestStudentSchema = new Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("bestStudent", bestStudentSchema);
+export default mongoose.model("bestStudent", bestStudentSchema);
 
-/**schoolNews
-
-studentActivities*/
