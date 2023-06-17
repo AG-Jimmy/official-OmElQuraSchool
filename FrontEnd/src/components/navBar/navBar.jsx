@@ -19,7 +19,6 @@ const navItems = ["التواصل","الاحداث", "الاخبار", "الصف
 const navItemsBar = ["الصفحة الرئيسية","التواصل","الاحداث", "الاخبار"];
 
 function DrawerAppBar() {
-//   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -44,8 +43,7 @@ function DrawerAppBar() {
     </Box>
 );
 
-//   const container =
-//     window !== undefined ? () => window().document.body : undefined;
+
 
   return (
     <Box sx={{ display: "flex" }}>

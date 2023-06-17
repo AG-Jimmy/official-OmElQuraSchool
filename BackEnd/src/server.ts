@@ -1,32 +1,46 @@
 import express from"express";
 import cors from "cors";
-import mongoose from "mongoose";
-import bestStudentRouter from"./routes/bestStudent";
-
-
-require("dotenv").config();//i'll search a dotenv with import
+// import bestStudentRouter from"./routes/bestStudent";
+import routes from './routes/connectRoutes'
+import { ConnectionDB } from "./Config/DBConnect";
+import ErrorHandler from "./MiddleWares/errorHandler";
+import 'dotenv/config';
 
 const app = express();
 //middleware
+
 app.use(cors());
 app.use(express.json());
 
-const uri:any = process.env.ATLAS_URI||'';
- 
-app.use("/bestStudent", bestStudentRouter);
+app.use(routes);
+app.use(ErrorHandler.handle)
 
 
-class Server {
-  start = async (PORT:number) => {
-    await mongoose.connect(uri);
-    return app.listen(PORT, () => {
-      console.log(`
-      =======================================
-      Mongo DB is Running in StudentData ...
-      server side is running on port :${PORT} 
-      =======================================
-      `);
-    });
+export class Server {
+  private port:any = process.env.PORT || 5000;
+
+  public start = async () => {
+   const connectionToDB=new ConnectionDB();
+   connectionToDB.connectToDatabase().then(()=>{
+    app.listen(this.port,() => {
+          console.log(`
+          =======================================
+          Mongo DB is Running in StudentData  ...
+          server side is running on port :${this.port} 
+          =======================================
+          `);
+        })
+   }).catch((error)=>{
+    console.log(`${error}
+        =======================================
+        Mongo DB is Don't Work ...
+        server side is running on port :${this.port} but not can access in server 
+        =======================================
+        `);
+    console.log('Server initialization cancelled');
+    process.exit(0);
+   })
+   
   };
 }
-export default  new Server();
+

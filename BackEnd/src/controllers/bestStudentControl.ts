@@ -1,30 +1,31 @@
 import bestStudentModel from "../models/bestStudent";
 import { Request,Response } from "express";
+import HttpStatus from "../Enums/httpStatus";
 
 export default class BestStudentControl {
-  post= async (req:Request, res:Response) => {
+
+
+ public post= async (req:Request, res:Response) => {
     try {
-      const { name, classroom, rating } = req.body;
+      const { name, classroom, rating }= req.body;
       const bestStudent = new bestStudentModel({ name, classroom, rating });
       const createBestStudent = await bestStudent.save();
-      createBestStudent
-        ? res.status(201).json(createBestStudent)
-        : "error in post";
+    if( createBestStudent) res.status(HttpStatus.CREATED).json(createBestStudent);
     } catch (error) {
-      res.status(500).json(`${error} in post new school News`);
+      res.status(400).json(`${error} in post method best student`);
     }
   }
 
-  get= async (req:Request, res:Response) => {
+  public get= async (req:Request, res:Response) => {
     try {
       const getAllBestStudent = await bestStudentModel.find();
-      getAllBestStudent ? res.status(200).json(getAllBestStudent) :0;
+      if( getAllBestStudent) res.status(HttpStatus.OK).json(getAllBestStudent);
     } catch (error) {
-      res.status(500).json(`${error} in get new school News`);
+      res.status(500).json(`${error} in get method best student `);
     }
   }
 
-  patch= async (req:Request, res:Response) => {
+  public patch= async (req:Request, res:Response) => {
     try {
       const id = req.params.id;
       const { name, classroom, rating } = req.body;
@@ -33,21 +34,21 @@ export default class BestStudentControl {
         { name, classroom, rating },
         { new: true }
       );
-      updateBestStudent ? res.status(201).json(updateBestStudent) : 0;
+      if( updateBestStudent) res.status(HttpStatus.CREATED).json(updateBestStudent);
     } catch (error) {
-      res.status(500).json(`${error} in patch new school News`);
+      res.status(500).json(`${error} in patch method best student`);
     }
   }
   
-  delete= async (req:Request, res:Response) => {
+  public delete= async (req:Request, res:Response) => {
     try {
       const id = req.params.id;
       const deleteBestStudent = await bestStudentModel.findOneAndDelete({
         _id: id,
       });
-      deleteBestStudent ? res.status(200).json(deleteBestStudent) : "";
+      if( deleteBestStudent) res.status(HttpStatus.OK).json(deleteBestStudent);
     } catch (error) {
-      res.status(500).json(`${error} in delete new school News`);
+      res.status(500).json(`${error} in delete method best student`);
     }
   }
 };

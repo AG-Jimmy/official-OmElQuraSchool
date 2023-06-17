@@ -5,11 +5,14 @@
   "main": "app.ts",
   "scripts": {
     "test": "jest",
-    "start": "nodemon app.ts"
+    "start": "nodemon app.ts",
+    "build": "tsc",
+    "dev":"nodemon ./dist/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",

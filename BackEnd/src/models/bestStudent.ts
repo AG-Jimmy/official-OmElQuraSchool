@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-const { Schema } = mongoose;
+import {Schema,model} from "mongoose";
 
-const bestStudentSchema = new Schema(
+
+
+const bestStudentSchema:Schema= new Schema(
   {
     name: String,
     classroom: String,
@@ -10,5 +11,5 @@ const bestStudentSchema = new Schema(
   { versionKey: false }
 );
 
-export default mongoose.model("bestStudent", bestStudentSchema);
+export default model("bestStudent", bestStudentSchema);
 
