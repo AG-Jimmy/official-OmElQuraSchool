@@ -12,43 +12,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const bestStudent_1 = __importDefault(require("./routes/bestStudent"));
-require("dotenv").config();
+const connectRoutes_1 = __importDefault(require("./routes/connectRoutes"));
+const DBConnect_1 = require("./models/DBConnect");
+require("dotenv/config");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-const uri = process.env.ATLAS_URI;
-app.use("/bestStudent", bestStudent_1.default);
+app.use(connectRoutes_1.default);
 class Server {
     constructor() {
-        this.start = (PORT) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                let mongoDBConnect = yield mongoose_1.default.connect(uri);
-                if (mongoDBConnect) {
-                    return app.listen(PORT, () => {
-                        console.log(`
-        =======================================
-        Mongo DB is Running in StudentData ...
-        server side is running on port :${PORT} 
-        =======================================
-        `);
-                    });
-                }
-            }
-            catch (error) {
-                return app.listen(PORT, () => {
-                    console.log(`${error}
+        this.port = process.env.PORT || 5000;
+        this.start = () => __awaiter(this, void 0, void 0, function* () {
+            const connectionToDB = new DBConnect_1.ConnectionDB();
+            connectionToDB.connectToDatabase().then(() => {
+                app.listen(this.port, () => {
+                    console.log(`
+          =======================================
+          Mongo DB is Running in StudentData  ...
+          server side is running on port :${this.port} 
+          =======================================
+          `);
+                });
+            }).catch((error) => {
+                console.log(`${error}
         =======================================
         Mongo DB is Don't Work ...
-        server side is running on port :${PORT} but not can access in server 
+        server side is running on port :${this.port} but not can access in server 
         =======================================
         `);
-                });
-            }
+                console.log('Server initialization cancelled');
+                process.exit(0);
+            });
         });
     }
 }
-exports.default = new Server();
+exports.Server = Server;

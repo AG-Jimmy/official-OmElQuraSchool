@@ -2,8 +2,7 @@ import express from"express";
 import cors from "cors";
 // import bestStudentRouter from"./routes/bestStudent";
 import routes from './routes/connectRoutes'
-import { ConnectionDB } from "./Config/DBConnect";
-import ErrorHandler from "./MiddleWares/errorHandler";
+import { ConnectionDB } from "./models/DBConnect";
 import 'dotenv/config';
 
 const app = express();
@@ -13,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routes);
-app.use(ErrorHandler.handle)
 
 
 export class Server {

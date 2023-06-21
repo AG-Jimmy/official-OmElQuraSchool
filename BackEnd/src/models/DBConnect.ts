@@ -6,7 +6,7 @@ export class ConnectionDB {
     private uri:any = process.env.ATLAS_URI;
 
    public connectToDatabase =async()=>{
-    const mongoDBConnect= await mongoose.connect(this.uri)
+        await mongoose.connect(this.uri)
    }
 
 }
